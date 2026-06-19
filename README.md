@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Frappe Stream
 
 A self-hostable video streaming platform built with FastAPI, PostgreSQL, Redis, FFmpeg, and HLS.
