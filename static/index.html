@@ -1,0 +1,49 @@
+<!-- static/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frappe Stream</title>
+    <style>
+        body { background: #0f0f0f; color: white; font-family: Arial; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+        .card { background: #1a1a1a; border-radius: 8px; overflow: hidden; cursor: pointer; text-decoration: none; color: white; }
+        .card:hover { background: #222; }
+        .thumb { width: 100%; height: 160px; object-fit: cover; background: #333; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .card-info { padding: 12px; }
+        .card-title { font-weight: bold; margin-bottom: 4px; }
+        .card-meta { color: #aaa; font-size: 13px; }
+        h1 { border-bottom: 2px solid #00b4d8; padding-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <h1>▶ Frappe Stream</h1>
+    <div id="grid" class="grid"></div>
+
+<script>
+    async function loadVideos() {
+        const res = await fetch("/api/v1/videos/");
+        const videos = await res.json();
+        const grid = document.getElementById("grid");
+        
+        if (videos.length === 0) {
+            grid.innerHTML = "<p style='color:#aaa'>No videos yet. Upload one!</p>";
+            return;
+        }
+        
+        grid.innerHTML = videos.map(v => `
+            <a class="card" href="/watch/${v.id}">
+                ${v.thumbnail_url 
+                    ? `<img class="thumb" src="${v.thumbnail_url}" onerror="this.style.display='none'"/>` 
+                    : `<div class="thumb">▶</div>`}
+                <div class="card-info">
+                    <div class="card-title">${v.title}</div>
+                    <div class="card-meta">${Math.round(v.duration || 0)}s · ${v.views} views</div>
+                </div>
+            </a>
+        `).join("");
+    }
+    
+    loadVideos();
+</script>
+</body>
+</html>
