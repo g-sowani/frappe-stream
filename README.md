@@ -4,12 +4,12 @@ A self-hostable video streaming platform built with FastAPI, PostgreSQL, Redis, 
 
 ## Architecture
 
-- **FastAPI** — async REST API
-- **PostgreSQL** — metadata storage (videos, users)
-- **Redis** — job queue + analytics buffer
-- **Celery** — background video processing workers
-- **FFmpeg** — video transcoding + HLS segment generation
-- **Video.js** — HLS player with adaptive bitrate streaming
+- **FastAPI** - async REST API
+- **PostgreSQL** - metadata storage (videos, users)
+- **Redis** - job queue + analytics buffer
+- **Celery** - background video processing workers
+- **FFmpeg** - video transcoding + HLS segment generation
+- **Video.js** - HLS player with adaptive bitrate streaming
 
 ## Stack
 
